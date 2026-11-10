@@ -1,0 +1,99 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Movimentação de Estoque - Mercado Boa Compra</title>
+</head>
+
+<body>
+
+    <h1>Mercado Boa Compra</h1>
+    <h2>Registrar Movimentação</h2>
+
+    <nav aria-label="Navegação principal">
+        <a href="/">Início</a> |
+        <a href="{{ url_for('consultar_estoque') }}">
+            Consultar estoque
+        </a>
+    </nav>
+
+    <hr>
+
+    
+{% with mensagens = get_flashed_messages(with_categories=true) %}
+    {% if mensagens %}
+        {% for categoria, mensagem in mensagens %}
+            <div role="alert"
+                 style="padding: 15px; margin: 15px 0;
+                        background-color: #ffe0e0;
+                        border: 1px solid #cc0000;
+                        color: #990000;">
+                {{ mensagem }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+
+    <form method="POST">
+
+        <p>
+            <label for="id_produto">Produto:</label>
+
+            <select id="id_produto"
+                    name="id_produto"
+                    required>
+
+                <option value="">Selecione um produto</option>
+
+                {% for produto in produtos %}
+                    <option value="{{ produto.id_produto }}">
+                        {{ produto.nome }}
+                        (Disponível: {{ produto.quantidade_atual }})
+                    </option>
+                {% endfor %}
+
+            </select>
+        </p>
+
+        <p>
+            <label for="tipo">Tipo de movimentação:</label>
+
+            <select id="tipo" name="tipo" required>
+                <option value="">Selecione</option>
+                <option value="entrada">Entrada</option>
+                <option value="saida">Saída</option>
+            </select>
+        </p>
+
+        <p>
+            <label for="quantidade">Quantidade:</label>
+
+            <input type="number"
+                   id="quantidade"
+                   name="quantidade"
+                   min="1"
+                   step="1"
+                   required>
+        </p>
+
+        <p>
+            <button type="submit">
+                Confirmar movimentação
+            </button>
+
+            <a href="{{ url_for('consultar_estoque') }}">
+                Cancelar
+            </a>
+        </p>
+
+    </form>
+
+</body>
+</html>

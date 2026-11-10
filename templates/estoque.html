@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Consulta de Estoque - Mercado Boa Compra</title>
+</head>
+
+<body>
+
+    <h1>Mercado Boa Compra</h1>
+    <h2>Consulta de Estoque</h2>
+
+    <nav aria-label="Navegação principal">
+        <a href="/">Início</a> |
+        <a href="{{ url_for('cadastrar_produto') }}">
+            Cadastrar produto
+        </a>
+    </nav>
+
+    <hr>
+
+{% with mensagens = get_flashed_messages(with_categories=true) %}
+    {% if mensagens %}
+        {% for categoria, mensagem in mensagens %}
+            <p role="alert">
+                {{ mensagem }}
+            </p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    <h3>Produtos cadastrados</h3>
+
+    {% if produtos %}
+
+    <div style="overflow-x: auto;">
+
+        <table border="1" cellpadding="10">
+
+            <thead>
+                <tr>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Estoque mínimo</th>
+                    <th scope="col">Situação</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for produto in produtos %}
+
+                <tr>
+                    <td>{{ produto.nome }}</td>
+                    <td>{{ produto.categoria }}</td>
+
+                    <td>
+                        R$ {{ "%.2f"|format(produto.preco)|replace(".", ",") }}
+                    </td>
+
+                    <td>{{ produto.quantidade_atual }}</td>
+                    <td>{{ produto.estoque_minimo }}</td>
+
+                    <td>
+                        {% if produto.quantidade_atual <= produto.estoque_minimo %}
+                            <strong>Estoque baixo</strong>
+                        {% else %}
+                            Estoque normal
+                        {% endif %}
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+        <p>Nenhum produto cadastrado.</p>
+
+    {% endif %}
+
+</body>
+</html>

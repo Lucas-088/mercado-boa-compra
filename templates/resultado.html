@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Resultado da Movimentação - Mercado Boa Compra</title>
+</head>
+
+<body>
+
+    <h1>Mercado Boa Compra</h1>
+    <h2>Resultado da Movimentação</h2>
+
+    <hr>
+
+    <h3>Movimentação registrada com sucesso!</h3>
+
+    <p>
+        <strong>Produto:</strong>
+        {{ produto.nome }}
+    </p>
+
+    <p>
+        <strong>Tipo:</strong>
+        {% if dados.tipo == "entrada" %}
+            Entrada
+        {% else %}
+            Saída
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Quantidade movimentada:</strong>
+        {{ dados.quantidade }} unidades
+    </p>
+
+    <p>
+        <strong>Estoque anterior:</strong>
+        {{ dados.estoque_anterior }} unidades
+    </p>
+
+    <p>
+        <strong>Estoque atualizado:</strong>
+        {{ dados.estoque_novo }} unidades
+    </p>
+
+    <hr>
+
+    {% if dados.estoque_novo <= produto.estoque_minimo %}
+        <p role="status">
+            <strong>Atenção: Estoque baixo!</strong>
+            Este produto precisa de reposição.
+        </p>
+    {% else %}
+        <p role="status">
+            Estoque dentro do nível esperado.
+        </p>
+    {% endif %}
+
+    <hr>
+
+    <p>
+        <a href="{{ url_for('registrar_movimentacao') }}">
+            Nova movimentação
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('consultar_estoque') }}">
+            Voltar ao estoque
+        </a>
+    </p>
+
+</body>
+</html>
