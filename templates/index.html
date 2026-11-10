@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mercado Boa Compra - Início</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Mercado Boa Compra</h1>
+        <p>Sistema de Controle de Estoque</p>
+    </header>
+
+    <nav aria-label="Navegação principal">
+        <a href="{{ url_for('pagina_inicial') }}">Início</a>
+        <a href="{{ url_for('consultar_estoque') }}">Estoque</a>
+        <a href="{{ url_for('cadastrar_produto') }}">Cadastrar produto</a>
+        <a href="{{ url_for('registrar_movimentacao') }}">Movimentações</a>
+    </nav>
+
+    <main>
+
+        <section class="card">
+            <h2>Bem-vindo ao Mercado Boa Compra!</h2>
+
+            <p>
+                Gerencie os produtos do seu mercado de forma
+                simples, organizada e eficiente.
+            </p>
+
+            <p>
+                Utilize as opções abaixo para cadastrar produtos,
+                consultar o estoque ou registrar movimentações.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>Gerenciamento de estoque</h2>
+
+            <p>
+                <a class="botao"
+                   href="{{ url_for('consultar_estoque') }}">
+                    Consultar estoque
+                </a>
+            </p>
+
+            <p>
+                <a class="botao"
+                   href="{{ url_for('cadastrar_produto') }}">
+                    Cadastrar produto
+                </a>
+            </p>
+
+            <p>
+                <a class="botao"
+                   href="{{ url_for('registrar_movimentacao') }}">
+                    Registrar movimentação
+                </a>
+            </p>
+        </section>
+
+    </main>
+
+</body>
+</html>

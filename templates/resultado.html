@@ -1,79 +1,90 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-
     <title>Resultado da Movimentação - Mercado Boa Compra</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body>
 
+<header>
     <h1>Mercado Boa Compra</h1>
-    <h2>Resultado da Movimentação</h2>
+    <p>Sistema de Controle de Estoque</p>
+</header>
 
-    <hr>
+<nav aria-label="Navegação principal">
+    <a href="{{ url_for('pagina_inicial') }}">Início</a>
+    <a href="{{ url_for('consultar_estoque') }}">Estoque</a>
+    <a href="{{ url_for('cadastrar_produto') }}">Cadastrar produto</a>
+    <a href="{{ url_for('registrar_movimentacao') }}">Movimentações</a>
+</nav>
 
-    <h3>Movimentação registrada com sucesso!</h3>
+<main>
+    <section class="card">
 
-    <p>
-        <strong>Produto:</strong>
-        {{ produto.nome }}
-    </p>
+        <div class="sucesso" role="status">
+            <strong>Movimentação registrada com sucesso!</strong>
+        </div>
 
-    <p>
-        <strong>Tipo:</strong>
-        {% if dados.tipo == "entrada" %}
-            Entrada
+        <h2>Resultado da Movimentação</h2>
+
+        <p><strong>Produto:</strong> {{ produto.nome }}</p>
+
+        <p>
+            <strong>Tipo:</strong>
+            {% if dados.tipo == "entrada" %}
+                Entrada
+            {% else %}
+                Saída
+            {% endif %}
+        </p>
+
+        <p>
+            <strong>Quantidade movimentada:</strong>
+            {{ dados.quantidade }} unidades
+        </p>
+
+        <p>
+            <strong>Estoque anterior:</strong>
+            {{ dados.estoque_anterior }} unidades
+        </p>
+
+        <p>
+            <strong>Estoque atualizado:</strong>
+            {{ dados.estoque_novo }} unidades
+        </p>
+
+        {% if dados.estoque_novo <= produto.estoque_minimo %}
+            <div class="alerta" role="alert">
+                <strong>Atenção: Estoque baixo!</strong>
+                Este produto precisa de reposição.
+            </div>
         {% else %}
-            Saída
+            <div class="sucesso" role="status">
+                Estoque dentro do nível esperado.
+            </div>
         {% endif %}
-    </p>
 
-    <p>
-        <strong>Quantidade movimentada:</strong>
-        {{ dados.quantidade }} unidades
-    </p>
-
-    <p>
-        <strong>Estoque anterior:</strong>
-        {{ dados.estoque_anterior }} unidades
-    </p>
-
-    <p>
-        <strong>Estoque atualizado:</strong>
-        {{ dados.estoque_novo }} unidades
-    </p>
-
-    <hr>
-
-    {% if dados.estoque_novo <= produto.estoque_minimo %}
-        <p role="status">
-            <strong>Atenção: Estoque baixo!</strong>
-            Este produto precisa de reposição.
+        <p>
+            <a class="botao"
+               href="{{ url_for('registrar_movimentacao') }}">
+                Nova movimentação
+            </a>
         </p>
-    {% else %}
-        <p role="status">
-            Estoque dentro do nível esperado.
+
+        <p>
+            <a class="botao"
+               href="{{ url_for('consultar_estoque') }}">
+                Voltar ao estoque
+            </a>
         </p>
-    {% endif %}
 
-    <hr>
-
-    <p>
-        <a href="{{ url_for('registrar_movimentacao') }}">
-            Nova movimentação
-        </a>
-    </p>
-
-    <p>
-        <a href="{{ url_for('consultar_estoque') }}">
-            Voltar ao estoque
-        </a>
-    </p>
+    </section>
+</main>
 
 </body>
 </html>

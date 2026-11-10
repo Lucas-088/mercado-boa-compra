@@ -15,24 +15,8 @@ app.secret_key = "desenvolvimento-local-temporario"
 
 @app.route("/")
 def pagina_inicial():
-    return """
-    <h1>Mercado Boa Compra</h1>
-    <h2>Sistema de Controle de Estoque</h2>
-
-    <p>Bem-vindo ao sistema de controle de estoque.</p>
-
-    <p>
-        <a href="/produtos">Cadastrar produto</a>
-    </p>
-
-    <p>
-        <a href="/estoque">Consultar estoque</a>
-    </p>
-
-    <p>
-       <a href="/movimentacao">Registrar movimentação</a>
-    </p>
-    """
+    return render_template("index.html")
+    
 
 
 @app.route("/produtos", methods=["GET", "POST"])

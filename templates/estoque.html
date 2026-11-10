@@ -8,88 +8,129 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>Consulta de Estoque - Mercado Boa Compra</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-    <h1>Mercado Boa Compra</h1>
-    <h2>Consulta de Estoque</h2>
+    <header>
+        <h1>Mercado Boa Compra</h1>
+        <p>Sistema de Controle de Estoque</p>
+    </header>
 
     <nav aria-label="Navegação principal">
-        <a href="/">Início</a> |
-        <a href="{{ url_for('cadastrar_produto') }}">
-            Cadastrar produto
-        </a>
+        <a href="{{ url_for('pagina_inicial') }}">Início</a>
+        <a href="{{ url_for('consultar_estoque') }}">Estoque</a>
+        <a href="{{ url_for('cadastrar_produto') }}">Cadastrar produto</a>
+        <a href="{{ url_for('registrar_movimentacao') }}">Movimentações</a>
     </nav>
 
-    <hr>
+    <main>
 
-{% with mensagens = get_flashed_messages(with_categories=true) %}
-    {% if mensagens %}
-        {% for categoria, mensagem in mensagens %}
-            <p role="alert">
-                {{ mensagem }}
+        <section class="card">
+
+            <h2>Consulta de Estoque</h2>
+
+            <p>
+                Consulte os produtos cadastrados e acompanhe
+                suas quantidades disponíveis.
             </p>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
 
-    <h3>Produtos cadastrados</h3>
+            <a class="botao"
+               href="{{ url_for('cadastrar_produto') }}">
+                Cadastrar produto
+            </a>
 
-    {% if produtos %}
+            <a class="botao"
+               href="{{ url_for('registrar_movimentacao') }}">
+                Registrar movimentação
+            </a>
 
-    <div style="overflow-x: auto;">
+        </section>
 
-        <table border="1" cellpadding="10">
+        <section class="card">
 
-            <thead>
-                <tr>
-                    <th scope="col">Produto</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Preço</th>
-                    <th scope="col">Quantidade</th>
-                    <th scope="col">Estoque mínimo</th>
-                    <th scope="col">Situação</th>
-                </tr>
-            </thead>
+            <h2>Produtos cadastrados</h2>
 
-            <tbody>
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% if mensagens %}
+                    {% for categoria, mensagem in mensagens %}
+                        <div class="{{ 'sucesso' if categoria == 'sucesso' else 'alerta' }}"
+                             role="alert">
+                            {{ mensagem }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
-                {% for produto in produtos %}
+            {% if produtos %}
 
-                <tr>
-                    <td>{{ produto.nome }}</td>
-                    <td>{{ produto.categoria }}</td>
+                <div class="tabela-container">
 
-                    <td>
-                        R$ {{ "%.2f"|format(produto.preco)|replace(".", ",") }}
-                    </td>
+                    <table>
 
-                    <td>{{ produto.quantidade_atual }}</td>
-                    <td>{{ produto.estoque_minimo }}</td>
+                        <thead>
+                            <tr>
+                                <th scope="col">Produto</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Quantidade</th>
+                                <th scope="col">Estoque mínimo</th>
+                                <th scope="col">Situação</th>
+                            </tr>
+                        </thead>
 
-                    <td>
-                        {% if produto.quantidade_atual <= produto.estoque_minimo %}
-                            <strong>Estoque baixo</strong>
-                        {% else %}
-                            Estoque normal
-                        {% endif %}
-                    </td>
-                </tr>
+                        <tbody>
 
-                {% endfor %}
+                            {% for produto in produtos %}
 
-            </tbody>
+                                <tr>
 
-        </table>
+                                    <td>{{ produto.nome }}</td>
 
-    </div>
+                                    <td>{{ produto.categoria }}</td>
 
-    {% else %}
+                                    <td>
+                                        R$ {{ "%.2f"|format(produto.preco)|replace(".", ",") }}
+                                    </td>
 
-        <p>Nenhum produto cadastrado.</p>
+                                    <td>{{ produto.quantidade_atual }}</td>
 
-    {% endif %}
+                                    <td>{{ produto.estoque_minimo }}</td>
+
+                                    <td>
+                                        {% if produto.quantidade_atual <= produto.estoque_minimo %}
+                                            <strong style="color: #9a3412;">
+                                                Estoque baixo
+                                            </strong>
+                                        {% else %}
+                                            <strong style="color: #176b45;">
+                                                Estoque normal
+                                            </strong>
+                                        {% endif %}
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <p>Nenhum produto cadastrado.</p>
+
+            {% endif %}
+
+        </section>
+
+    </main>
 
 </body>
 </html>

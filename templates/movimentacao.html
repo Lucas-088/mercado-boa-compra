@@ -1,99 +1,88 @@
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-
     <title>Movimentação de Estoque - Mercado Boa Compra</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body>
 
+<header>
     <h1>Mercado Boa Compra</h1>
-    <h2>Registrar Movimentação</h2>
+    <p>Sistema de Controle de Estoque</p>
+</header>
 
-    <nav aria-label="Navegação principal">
-        <a href="/">Início</a> |
-        <a href="{{ url_for('consultar_estoque') }}">
-            Consultar estoque
-        </a>
-    </nav>
+<nav aria-label="Navegação principal">
+    <a href="{{ url_for('pagina_inicial') }}">Início</a>
+    <a href="{{ url_for('consultar_estoque') }}">Estoque</a>
+    <a href="{{ url_for('cadastrar_produto') }}">Cadastrar produto</a>
+    <a href="{{ url_for('registrar_movimentacao') }}">Movimentações</a>
+</nav>
 
-    <hr>
+<main>
+    <section class="card">
+        <h2>Registrar Movimentação</h2>
+        <p>Registre entradas ou saídas de produtos do estoque.</p>
 
-    
-{% with mensagens = get_flashed_messages(with_categories=true) %}
-    {% if mensagens %}
-        {% for categoria, mensagem in mensagens %}
-            <div role="alert"
-                 style="padding: 15px; margin: 15px 0;
-                        background-color: #ffe0e0;
-                        border: 1px solid #cc0000;
-                        color: #990000;">
-                {{ mensagem }}
-            </div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% for categoria, mensagem in mensagens %}
+                <div class="{{ 'sucesso' if categoria == 'sucesso' else 'alerta' }}"
+                     role="alert">
+                    {{ mensagem }}
+                </div>
+            {% endfor %}
+        {% endwith %}
 
+        <form method="POST">
 
-    <form method="POST">
+            <p>
+                <label for="id_produto">Produto</label>
+                <select id="id_produto" name="id_produto" required>
+                    <option value="">Selecione um produto</option>
 
-        <p>
-            <label for="id_produto">Produto:</label>
+                    {% for produto in produtos %}
+                        <option value="{{ produto.id_produto }}">
+                            {{ produto.nome }}
+                            (Estoque: {{ produto.quantidade_atual }})
+                        </option>
+                    {% endfor %}
+                </select>
+            </p>
 
-            <select id="id_produto"
-                    name="id_produto"
-                    required>
+            <p>
+                <label for="tipo">Tipo de movimentação</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="">Selecione o tipo</option>
+                    <option value="entrada">Entrada</option>
+                    <option value="saida">Saída</option>
+                </select>
+            </p>
 
-                <option value="">Selecione um produto</option>
+            <p>
+                <label for="quantidade">Quantidade</label>
+                <input type="number" id="quantidade" name="quantidade"
+                       min="1" step="1" required>
+            </p>
 
-                {% for produto in produtos %}
-                    <option value="{{ produto.id_produto }}">
-                        {{ produto.nome }}
-                        (Disponível: {{ produto.quantidade_atual }})
-                    </option>
-                {% endfor %}
-
-            </select>
-        </p>
-
-        <p>
-            <label for="tipo">Tipo de movimentação:</label>
-
-            <select id="tipo" name="tipo" required>
-                <option value="">Selecione</option>
-                <option value="entrada">Entrada</option>
-                <option value="saida">Saída</option>
-            </select>
-        </p>
-
-        <p>
-            <label for="quantidade">Quantidade:</label>
-
-            <input type="number"
-                   id="quantidade"
-                   name="quantidade"
-                   min="1"
-                   step="1"
-                   required>
-        </p>
-
-        <p>
-            <button type="submit">
+            <button type="submit"
+                    {% if not produtos %}disabled{% endif %}>
                 Confirmar movimentação
             </button>
 
-            <a href="{{ url_for('consultar_estoque') }}">
-                Cancelar
-            </a>
-        </p>
+        </form>
 
-    </form>
+        {% if not produtos %}
+            <div class="alerta" role="alert">
+                Nenhum produto cadastrado.
+                Cadastre um produto antes de registrar movimentações.
+            </div>
+        {% endif %}
+    </section>
+</main>
 
 </body>
 </html>

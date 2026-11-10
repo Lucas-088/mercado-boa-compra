@@ -1,0 +1,193 @@
+
+/* Mercado Boa Compra - Estilos principais */
+
+:root {
+    --verde: #176b45;
+    --verde-escuro: #124d33;
+    --fundo: #f3f6f4;
+    --branco: #ffffff;
+    --texto: #24372c;
+    --cinza: #61766b;
+    --borda: #dce6df;
+    --alerta: #9a3412;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    line-height: 1.5;
+}
+
+header {
+    background: var(--verde);
+    color: var(--branco);
+    padding: 24px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+header p {
+    margin: 5px 0 0;
+}
+
+nav {
+    background: var(--verde-escuro);
+    padding: 15px 24px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: var(--branco);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+h2 {
+    color: var(--verde-escuro);
+    margin-top: 0;
+}
+
+button,
+.botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--verde);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    min-height: 44px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover,
+.botao:hover {
+    background: var(--verde-escuro);
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #82968a;
+    border-radius: 8px;
+    font-size: 16px;
+    min-height: 44px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form p {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th,
+td {
+    padding: 14px;
+    border-bottom: 1px solid var(--borda);
+    text-align: left;
+}
+
+th {
+    background: #e9f1eb;
+}
+
+.tabela-container {
+    overflow-x: auto;
+}
+
+.alerta {
+    background: #fff1e8;
+    border: 1px solid #f0b48d;
+    color: var(--alerta);
+    padding: 14px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.sucesso {
+    background: #e7f5ec;
+    border: 1px solid #92c9a6;
+    color: #14532d;
+    padding: 14px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+:focus-visible {
+    outline: 3px solid #d97706;
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 22px;
+    }
+
+    nav {
+        gap: 12px;
+    }
+
+    main {
+        margin: 20px auto;
+        padding: 0 12px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    th,
+    td {
+        padding: 10px;
+    }
+}
