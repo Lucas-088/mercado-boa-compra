@@ -1,3 +1,4 @@
+import os
 
 from decimal import Decimal, InvalidOperation
 
@@ -7,10 +8,8 @@ from database import conectar, criar_tabelas
 
 app = Flask(__name__)
 
-# Configuração temporária para desenvolvimento local.
-# Antes de publicar, usaremos uma variável de ambiente.
-app.secret_key = "desenvolvimento-local-temporario"
-
+# Chave de sessão configurada por variável de ambiente.
+app.secret_key = os.environ["SECRET_KEY"]
 
 
 @app.route("/")
