@@ -22,3 +22,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 .vscode/
+
+*.db-journal
+*.db-wal
+*.db-shm
