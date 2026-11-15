@@ -191,3 +191,65 @@ th {
         padding: 10px;
     }
 }
+
+
+/* Acessibilidade: modo de alto contraste */
+
+body.alto-contraste {
+    --verde: #ffff00;
+    --verde-escuro: #ffff00;
+    --fundo: #000000;
+    --branco: #000000;
+    --texto: #ffffff;
+    --cinza: #ffffff;
+    --borda: #ffffff;
+    --alerta: #ffff00;
+}
+
+body.alto-contraste header,
+body.alto-contraste nav {
+    background: #000000;
+    color: #ffffff;
+    border-bottom: 2px solid #ffff00;
+}
+
+body.alto-contraste nav a {
+    color: #ffff00;
+}
+
+body.alto-contraste h2 {
+    color: #ffff00;
+}
+
+body.alto-contraste button,
+body.alto-contraste .botao {
+    background: #ffff00;
+    color: #000000;
+    border: 2px solid #ffffff;
+}
+
+body.alto-contraste input,
+body.alto-contraste select {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffff00;
+}
+
+body.alto-contraste table,
+body.alto-contraste th,
+body.alto-contraste td {
+    background: #000000;
+    color: #ffffff;
+}
+
+body.alto-contraste .alerta,
+body.alto-contraste .sucesso {
+    background: #000000;
+    color: #ffff00;
+    border: 2px solid #ffff00;
+}
+
+body.alto-contraste :focus-visible {
+    outline: 3px solid #ffff00;
+    outline-offset: 3px;
+}

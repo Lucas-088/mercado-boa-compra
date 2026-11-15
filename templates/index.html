@@ -25,6 +25,12 @@
         <a href="{{ url_for('consultar_estoque') }}">Estoque</a>
         <a href="{{ url_for('cadastrar_produto') }}">Cadastrar produto</a>
         <a href="{{ url_for('registrar_movimentacao') }}">Movimentações</a>
+
+        <button type="button"
+                id="botao-contraste"
+                aria-pressed="false">
+            Ativar alto contraste
+        </button>
     </nav>
 
     <main>
@@ -69,6 +75,43 @@
         </section>
 
     </main>
+
+    <script>
+        const botaoContraste =
+            document.getElementById("botao-contraste");
+
+        function atualizarContraste(ativado) {
+            document.body.classList.toggle(
+                "alto-contraste",
+                ativado
+            );
+
+            botaoContraste.setAttribute(
+                "aria-pressed",
+                String(ativado)
+            );
+
+            botaoContraste.textContent = ativado
+                ? "Desativar alto contraste"
+                : "Ativar alto contraste";
+        }
+
+        atualizarContraste(
+            localStorage.getItem("altoContraste") === "true"
+        );
+
+        botaoContraste.addEventListener("click", function () {
+            const ativado =
+                !document.body.classList.contains("alto-contraste");
+
+            atualizarContraste(ativado);
+
+            localStorage.setItem(
+                "altoContraste",
+                String(ativado)
+            );
+        });
+    </script>
 
 </body>
 </html>
