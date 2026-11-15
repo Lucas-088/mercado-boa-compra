@@ -1,10 +1,17 @@
-
+import os
 import sqlite3
 from pathlib import Path
 
-# Pasta onde o banco de dados será armazenado
+
 BASE_DIR = Path(__file__).resolve().parent
-DATABASE = BASE_DIR / "mercado.db"
+
+DATABASE = Path(
+    os.environ.get(
+        "DATABASE_PATH",
+        str(BASE_DIR / "mercado.db")
+    )
+)
+
 
 
 def conectar():

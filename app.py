@@ -235,7 +235,10 @@ def resultado_movimentacao():
 
 
 
+
+# Inicializa as tabelas ao carregar a aplicação
+criar_tabelas()
+
 if __name__ == "__main__":
-    criar_tabelas()
     app.run(debug=True)
 
